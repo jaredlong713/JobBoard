@@ -39,7 +39,15 @@ namespace JobBoard.UI.MVC.Controllers
         // GET: Locations/Create
         public ActionResult Create()
         {
-            ViewBag.ManagerId = new SelectList(db.UserDetails, "UserId", "FirstName");
+            var users = db.UserDetails.ToList();
+            var roles = db.AspNetRoles.ToList();
+
+            var managers = (from p in users
+                             join r in roles on p.RoleId equals r.Id
+                             where r.Name == "Manager"
+                             select p).ToList();
+
+            ViewBag.ManagerId = new SelectList(managers, "UserId", "FirstName");
             return View();
         }
 

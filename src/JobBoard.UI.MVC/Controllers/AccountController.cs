@@ -1,7 +1,9 @@
-﻿using JobBoard.UI.MVC.Models;
+﻿using JobBoard.DATA.EF;
+using JobBoard.UI.MVC.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,6 +14,8 @@ namespace JobBoard.UI.MVC.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private JobBoardEntities db = new JobBoardEntities();
+
         public AccountController()
         {
         }
@@ -145,12 +149,42 @@ namespace JobBoard.UI.MVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase resumeFile)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                UserDetail userDetail = new UserDetail();
+                userDetail.FirstName = model.FirstName;
+                userDetail.LastName = model.LastName;
+                userDetail.UserId = user.Id;
+                userDetail.RoleId = "96e8f868-00fb-49f4-a302-4ec969ef5b8c";
+
+                string resume = String.Empty;
+                if ( resumeFile != null)
+                {
+                    resume = resumeFile.FileName;
+
+                    string extension = resume.Substring(resume.LastIndexOf("."));
+
+                    string[] okExtensions = { ".pdf", ".doc", "docx"};
+
+                    if (okExtensions.Contains(extension.ToLower()))
+                    {
+                        resume = userDetail.LastName + userDetail.FirstName + extension;
+
+                        resumeFile.SaveAs(Server.MapPath("~/Content/resumes/" + resume));
+                    } else
+                    {
+                        resume = "NA.pdf";
+                    }
+                }
+
+                userDetail.ResumeFilename = resume;
+
+                db.UserDetails.Add(userDetail);
+                db.SaveChanges();
                 if (result.Succeeded)
                 {
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -162,7 +196,6 @@ namespace JobBoard.UI.MVC.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 

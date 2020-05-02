@@ -65,6 +65,17 @@ namespace JobBoard.UI.MVC.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        [StringLength(50, ErrorMessage = "* Max 50 characters")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage = "* Max 50 characters")]
+        public string LastName { get; set; }
+
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,6 +90,9 @@ namespace JobBoard.UI.MVC.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [StringLength(75, ErrorMessage = "* Max 75 characters")]
+        public string ResumeFile { get; set; }
     }
 
     public class ResetPasswordViewModel

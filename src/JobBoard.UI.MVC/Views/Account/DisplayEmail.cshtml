@@ -1,11 +1,30 @@
 ﻿@{
     ViewBag.Title = "DEMO purpose Email Link";
 }
-<h2>@ViewBag.Title.</h2>
-<p class="text-info">
-    Please check your email and confirm your email address.
-</p>
-<p class="text-danger">
-    For DEMO only: You can click this link to confirm the email: <a href="@ViewBag.Link">link</a>
-    Please change this code to register an email service in IdentityConfig to send an email.
-</p>
+
+<section class="banner-area relative" id="home" style="background-image: url(/Content/img/header-bg.jpg); ">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    YOU'VE REGISTERED
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center d-flex">
+        <div class="col-lg-12 post-list">
+            <p class="text-info">
+                Please check your email and confirm your email address.
+            </p>
+            <p class="text-danger">
+                For DEMO only: You can click this link to confirm the email: <a href="@ViewBag.Link">link</a>
+                Please change this code to register an email service in IdentityConfig to send an email.
+            </p>
+        </div>
+    </div>
+</div>
