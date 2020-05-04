@@ -53,6 +53,9 @@
     <Compile Include="Application.cs">
       <DependentUpon>JobBoard.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationStatus.cs">
+      <DependentUpon>JobBoard.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetRole.cs">
       <DependentUpon>JobBoard.tt</DependentUpon>
     </Compile>

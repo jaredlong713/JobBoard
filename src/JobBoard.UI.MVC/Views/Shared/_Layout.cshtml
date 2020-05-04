@@ -33,27 +33,32 @@
         <div class="container">
             <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
-                    <a href="index.html"><img src="~/Content/img/logo.png" alt="" title="" /></a>
+                    <a href="@Url.Action("Index", "OpenPositions")"><img src="~/Content/img/logo.png" alt="" title="" /></a>
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
-                        <li><a href="@Url.Action("Index", "Home")">Job Listings</a></li>
+                        <li><a href="@Url.Action("Index", "OpenPositions")">Open Positions</a></li>
+
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li><a href="@Url.Action("Index", "Applications")">Applications</a></li>
+                        }
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
                             <li><a href="@Url.Action("Index", "Locations")">Locations</a></li>
+                            <li><a href="@Url.Action("Index", "Positions")">Positions</a></li>
+                            <li><a href="@Url.Action("Index", "UsersAdmin")">Users</a></li>
                         }
-                            <li><a href="contact.html">Contact</a></li>
-                            <li class="menu-has-children">
-                                <a href="">Pages</a>
-                                <ul>
-                                    <li><a href="elements.html">elements</a></li>
-                                    <li><a href="search.html">search</a></li>
-                                    <li><a href="single.html">single</a></li>
-                                </ul>
-                            </li>
-                            <li><a class="ticker-btn" href="#">Register</a></li>
-                            <li><a class="ticker-btn" href="@Url.Action("Login", "Account")" href="#">Login</a></li>
-                        </ul>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <li><a class="ticker-btn" href="@Url.Action("Register", "Account")">Register</a></li>
+                        }
+                        <li><a class="ticker-btn" href="@Url.Action("Login", "Account")">Login</a></li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li><a class="ticker-btn" href="@Url.Action("Index", "Manage")">Account</a></li>
+                        }
+                    </ul>
                 </nav><!-- #nav-menu-container -->
             </div>
         </div>

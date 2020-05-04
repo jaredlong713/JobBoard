@@ -78,7 +78,7 @@ namespace JobBoard.UI.MVC.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "OpenPositions");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -155,6 +155,13 @@ namespace JobBoard.UI.MVC.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                //Always have a new user have the employee role
+                if (result.Succeeded)
+                {
+                    var roles = await UserManager.AddToRolesAsync(user.Id, "Employee");
+                }
+
                 UserDetail userDetail = new UserDetail();
                 userDetail.FirstName = model.FirstName;
                 userDetail.LastName = model.LastName;

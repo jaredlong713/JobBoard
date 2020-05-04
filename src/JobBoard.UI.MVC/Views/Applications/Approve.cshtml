@@ -1,0 +1,96 @@
+﻿@model JobBoard.DATA.EF.Application
+
+@{
+    ViewBag.Title = "Approve";
+}
+
+<section class="banner-area relative" id="home" style="background-image: url(/Content/img/header-bg.jpg); ">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    APPROVE APPLICATION
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center d-flex">
+        <div class="col-lg-12 post-list">
+            <br />
+            <h3>Are you sure you want to approve this Application?</h3>
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ApplicationDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ApplicationDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ManagerNotes)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ManagerNotes)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ApplicationStatusId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ApplicationStatusId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ResumeFilename)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ResumeFilename)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.OpenPosition.OpenPositionId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.OpenPosition.OpenPositionId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.UserDetail.FirstName)
+                    </dd>
+
+                </dl>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-10">
+                                <input type="submit" value="Approve" class="genric-btn danger-border circle" />
+                                <br /><br />
+                            </div>
+
+                            <div class=" col-md-3 col-lg-2">
+                                <a href="@Url.Action("Index", "Applications")" class="genric-btn info-border circle">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

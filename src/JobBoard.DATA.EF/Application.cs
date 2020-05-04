@@ -24,5 +24,6 @@ namespace JobBoard.DATA.EF
     
         public virtual OpenPosition OpenPosition { get; set; }
         public virtual UserDetail UserDetail { get; set; }
+        public virtual ApplicationStatus ApplicationStatus { get; set; }
     }
 }

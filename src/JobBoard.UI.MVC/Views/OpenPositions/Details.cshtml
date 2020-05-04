@@ -1,0 +1,68 @@
+﻿@model JobBoard.DATA.EF.OpenPosition
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <section class="banner-area relative" id="home" style="background-image: url(/Content/img/header-bg.jpg); ">
+        <div class="overlay overlay-bg"></div>
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="about-content col-lg-12">
+                    <h1 class="text-white">
+                        DETAILS
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="post-area section-gap">
+    <div class="container">
+        <div class="row justify-content-center d-flex">
+            <div class="col-lg-12 post-list">
+                <div class="container">
+                    <div class="row">
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <div class="col-md-9 col-lg-10">
+                                <a href="@Url.Action("Delete", "OpenPositions", new RouteValueDictionary(new { id = Model.LocationId }))" class="genric-btn danger-border circle">Delete</a>
+                                <br /><br />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-9 col-lg-10">
+                                <a href="@Url.Action("Apply", "OpenPositions", new RouteValueDictionary(new { id = Model.LocationId }))" class="genric-btn primary circle arrow">Apply<span class="lnr lnr-arrow-right"></span></a>
+                                <br /><br />
+                            </div>
+                        }
+                        <div class=" col-md-3 col-lg-2">
+                            <a href="@Url.Action("Index", "OpenPositions")" class="genric-btn info-border circle">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-post d-flex flex-row">
+                    <div class="details">
+                        <div class="title d-flex flex-row justify-content-between">
+                            <div class="titles">
+                                <a href="@Url.Action("Details", "OpenPositions", new RouteValueDictionary(new { id = Model.OpenPositionId }))"><h4>@Html.DisplayFor(modelItem => Model.Position.Title)</h4></a>
+                                @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                                {
+                                    <h6>Store: @Html.DisplayFor(modelItem => Model.Location.StoreNumber)</h6>
+                                }
+                            </div>
+                        </div>
+                        <p class="address"><span class="lnr lnr-map"></span> @Html.DisplayFor(modelItem => Model.Location.City), @Html.DisplayFor(modelItem => Model.Location.State)</p>
+                        <p class="address"><span class="lnr lnr-database"></span> @Html.DisplayFor(modelItem => Model.Position.PayRange)</p>
+                    </div>
+                </div>
+                <div class="single-post job-details">
+                    <h4 class="single-title">Whom we are looking for</h4>
+                    <p>
+                        @Html.DisplayFor(modelItem => Model.Position.JobDescription)
+                    </p>
+                </div>
+            </div>
+    </div>
+</section>

@@ -2194,7 +2194,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .section-gap {
-  padding: 120px 0;
+  padding: 25px 0;
 }
 
 .section-title {
@@ -2601,10 +2601,12 @@ body.mobile-nav-active #mobile-nav-toggle {
   }
 }
 
+
 .post-list .single-post {
-  padding: 30px;
-  background-color: #f9f9ff;
-  margin-bottom: 30px;
+    padding: 30px;
+    background-color: #f9f9ff;
+    margin-bottom: 30px;
+    border-right: thick solid #49e4fa;
 }
 
 .post-list .single-post h6 {

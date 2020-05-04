@@ -1,0 +1,92 @@
+﻿@model IEnumerable<JobBoard.DATA.EF.Application>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="banner-area relative" id="home" style="background-image: url(/Content/img/header-bg.jpg); ">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    APPLICATIONS
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center d-flex">
+        <div class="col-lg-12 post-list">
+            <h3>
+                <br />
+                @if (User.IsInRole("Admin"))
+                {
+                    @:All Applications
+                }
+                else if (User.IsInRole("Manager"))
+                {
+                    @:Applications at your managed locations
+                }
+                else if (User.IsInRole("Employee"))
+                {
+                    @:Your Applications
+                }
+                <br /><br />
+            </h3>
+            <table class="table">
+                <tr>
+                    <th>
+                        Applicant:
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApplicationDate)
+                    </th>
+                    <th>
+                        Application Status
+                    </th>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <th></th>
+                        <th></th>
+                    }
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
+                        @Html.DisplayFor(modelItem => item.UserDetail.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OpenPosition.Position.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApplicationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApplicationStatus.StatusName)
+                    </td>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <td>
+                            <a href="@Url.Action("Edit", "Applications", new RouteValueDictionary(new { id = item.ApplicationId }))" class="genric-btn primary-border small">Edit</a>
+                            <a href="@Url.Action("Details", "Applications", new RouteValueDictionary(new { id = item.ApplicationId }))" class="genric-btn primary-border small">Details</a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Reject", "Applications", new RouteValueDictionary(new { appID = item.ApplicationId }))" class="genric-btn danger-border small">Reject</a>
+                            <a href="@Url.Action("Approve", "Applications", new RouteValueDictionary(new { appID = item.ApplicationId }))" class="genric-btn danger-border small">Approve</a>
+                        </td>
+                    }
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

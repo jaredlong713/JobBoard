@@ -91,6 +91,7 @@ namespace JobBoard.UI.MVC.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
         [StringLength(75, ErrorMessage = "* Max 75 characters")]
         public string ResumeFile { get; set; }
     }

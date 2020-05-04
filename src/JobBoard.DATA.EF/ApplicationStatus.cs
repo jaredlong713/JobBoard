@@ -12,20 +12,18 @@ namespace JobBoard.DATA.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Position
+    public partial class ApplicationStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Position()
+        public ApplicationStatus()
         {
-            this.OpenPositions = new HashSet<OpenPosition>();
+            this.Applications = new HashSet<Application>();
         }
     
-        public int PositionId { get; set; }
-        public string Title { get; set; }
-        public string JobDescription { get; set; }
-        public string PayRange { get; set; }
+        public int ApplicationStatusId { get; set; }
+        public string StatusName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OpenPosition> OpenPositions { get; set; }
+        public virtual ICollection<Application> Applications { get; set; }
     }
 }

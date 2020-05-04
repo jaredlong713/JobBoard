@@ -1,0 +1,66 @@
+﻿@model JobBoard.DATA.EF.Position
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<section class="banner-area relative" id="home" style="background-image: url(/Content/img/header-bg.jpg); ">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">
+                    POSITION DETAILS
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center d-flex">
+        <div class="col-lg-12 post-list">
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.JobDescription)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.JobDescription)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PayRange)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PayRange)
+                    </dd>
+
+                </dl>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-10">
+                        <a href="@Url.Action("Edit", "Positions", new RouteValueDictionary(new { id = Model.PositionId }))" class="genric-btn primary-border circle">Edit</a>
+                        <br /><br />
+                    </div>
+
+                    <div class=" col-md-3 col-lg-2">
+                        <a href="@Url.Action("Index", "Positions")" class="genric-btn info-border circle">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

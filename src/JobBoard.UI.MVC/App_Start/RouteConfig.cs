@@ -12,7 +12,7 @@ namespace JobBoard.UI.MVC
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "OpenPositions", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

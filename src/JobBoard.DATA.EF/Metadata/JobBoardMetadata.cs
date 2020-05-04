@@ -11,7 +11,7 @@ namespace JobBoard.DATA.EF
     [MetadataType(typeof(LocationMetadata))]
     public partial class Location
     {
-        public string LocationDdlText
+        public string FullLocation
         {
             get { return string.Format($"{StoreNumber} - {City}, {State}"); }
         }
@@ -58,6 +58,10 @@ namespace JobBoard.DATA.EF
         [Display(Name = "Job Description")]
         [StringLength(4000, ErrorMessage = "* 4000 Character Max")]
         public string JobDescription { get; set; }
+
+        [Required]
+        [Display(Name = "Pay")]
+        public string PayRange { get; set; }
     }
 
 
@@ -78,7 +82,7 @@ namespace JobBoard.DATA.EF
         [DisplayFormat(NullDisplayText = "None yet")]
         public string ManagerNotes { get; set; }
 
-        [Display(Name = "ApplicationStatus")]
+        [Display(Name = "Application Status")]
         public string ApplicationStatusId { get; set; }
 
         [Display(Name = "Resume")]

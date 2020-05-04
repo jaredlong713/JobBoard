@@ -1,7 +1,10 @@
-﻿using JobBoard.UI.MVC.Models;
+﻿using JobBoard.DATA.EF;
+using JobBoard.UI.MVC.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -21,6 +24,7 @@ namespace JobBoard.UI.MVC.Controllers
             UserManager = userManager;
         }
 
+        private JobBoardEntities db = new JobBoardEntities();
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
         {
@@ -410,5 +414,37 @@ namespace JobBoard.UI.MVC.Controllers
         }
 
         #endregion
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResumeUpload(HttpPostedFileBase resumeFile)
+        {
+            string userid = User.Identity.GetUserId();
+            UserDetail user = db.UserDetails.Where(x => x.UserId == userid).SingleOrDefault();
+
+            if (resumeFile != null)
+            {
+                string resume = resumeFile.FileName;
+
+                string ext = resume.Substring(resume.LastIndexOf("."));
+
+                string[] goodExts = { ".pdf", ".doc", ".docx" };
+
+                if (goodExts.Contains(ext.ToLower()))
+                {
+                    resume = user.LastName + user.FirstName + DateTime.Now.Year + DateTime.Now.Month + DateTime.Now.Day + ext;
+                    resumeFile.SaveAs(Server.MapPath("~/Content/resumes/") + resume);
+                    user.ResumeFilename = resume;
+                }
+                else
+                {
+                    resume = user.ResumeFilename;
+                }
+
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "OpenPositions");
+        }
     }
 }

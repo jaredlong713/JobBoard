@@ -3,7 +3,18 @@
     ViewBag.Title = "Create";
 }
 
-<h2>@ViewBag.Title.</h2>
+    <section class="banner-area relative" id="home" style="background-image: url(/Content/img/header-bg.jpg); ">
+        <div class="overlay overlay-bg"></div>
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="about-content col-lg-12">
+                    <h1 class="text-white">
+                        CREATE USER
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
 
 @using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
